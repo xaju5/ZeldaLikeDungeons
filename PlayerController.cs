@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
     private Rigidbody2D rb;
-    private Vector2 movement;
-    private float angle;
+    private Vector2 movementVector;
+    private float movementAngle;
 
     // Start is called before the first frame update
     void Start()
@@ -22,31 +22,31 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Input
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        movementVector.x = Input.GetAxisRaw("Horizontal");
+        movementVector.y = Input.GetAxisRaw("Vertical");
         if(Input.anyKey)
-            angle = getAngle(movement);
+            movementAngle = GetAngle(movementVector);
 
-        animator.SetFloat("horizontalMov", movement.x);
-        animator.SetFloat("verticalMov", movement.y);
-        animator.SetFloat("speed", movement.sqrMagnitude);
-        animator.SetFloat("angleMov", angle);
+        animator.SetFloat("horizontalMov", movementVector.x);
+        animator.SetFloat("verticalMov", movementVector.y);
+        animator.SetFloat("speed", movementVector.sqrMagnitude);
+        animator.SetFloat("angleMov", movementAngle);
     }
 
     private void FixedUpdate()
     {
         //Movement
-        move();
+        Move();
     }
 
 
 
-    private void move()
+    private void Move()
     {
-        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movementVector * speed * Time.fixedDeltaTime);
     }
 
-    private static float getAngle(Vector2 vector2)
+    private static float GetAngle(Vector2 vector2)
     {
         if (vector2.x < 0)
             return 360 - (Mathf.Atan2(vector2.x, vector2.y) * Mathf.Rad2Deg * -1);
