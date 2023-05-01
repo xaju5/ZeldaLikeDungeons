@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform player;
-    public float smoothSpeed;
+    public float smoothSpeedMovement;
 
     private Vector3 targetPos, newPos;
 
@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
 
     private void MoveCamera()
     {
-        newPos = Vector3.Lerp(transform.position, targetPos, smoothSpeed);
+        newPos = Vector3.Lerp(transform.position, targetPos, smoothSpeedMovement);
         transform.position = newPos;
     }
 
